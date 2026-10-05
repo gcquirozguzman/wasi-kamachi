@@ -1,0 +1,42 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#6366f1" />
+    <meta
+      name="description"
+      content="Wasi Kamachi - registra tus comidas, ingredientes y escala recetas por numero de personas"
+    />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <title>Wasi Kamachi</title>
+    <script>
+      // Aplica el tema guardado ANTES del primer pintado para evitar el
+      // parpadeo blanco al recargar en modo oscuro.
+      // La clave debe coincidir con THEME_STORAGE_KEY en src/theme/theme.ts.
+      (function () {
+        try {
+          var choice = localStorage.getItem('wasi-kamachi:theme') || 'system'
+          var dark =
+            choice === 'dark' ||
+            (choice === 'system' &&
+              window.matchMedia('(prefers-color-scheme: dark)').matches)
+          document.documentElement.classList.toggle('dark', dark)
+          document.documentElement.style.colorScheme = dark ? 'dark' : 'light'
+
+          // Idem para el acento (claves en src/theme/theme.ts).
+          var accents = ['indigo', 'albahaca', 'turquesa', 'frambuesa']
+          var accent = localStorage.getItem('wasi-kamachi:accent')
+          document.documentElement.dataset.accent =
+            accents.indexOf(accent) === -1 ? 'indigo' : accent
+        } catch (e) {}
+      })()
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
